@@ -1748,9 +1748,10 @@ class WP_REST_Server {
 		$has_error  = false;
 
 		foreach ( $requests as $single_request ) {
+			// A request whose path failed to parse is captured as a validation
+			// error; skip straight to the next one.
 			if ( is_wp_error( $single_request ) ) {
 				$has_error    = true;
-				$matches[]    = $single_request;
 				$validation[] = $single_request;
 				continue;
 			}
