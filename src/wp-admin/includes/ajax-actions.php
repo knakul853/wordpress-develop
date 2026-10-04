@@ -3911,19 +3911,11 @@ function wp_ajax_parse_media_shortcode() {
 
 	$shortcode = wp_unslash( $_POST['shortcode'] );
 
-	// Only process previews for media related shortcodes:
 	$found_shortcodes = get_shortcode_tags_in_content( $shortcode );
-	$media_shortcodes = array(
-		'audio',
-		'embed',
-		'playlist',
-		'video',
-		'gallery',
-	);
+	$media_shortcodes = array( 'audio', 'embed', 'gallery', 'playlist', 'video' );
 
-	$other_shortcodes = array_diff( $found_shortcodes, $media_shortcodes );
-
-	if ( ! empty( $other_shortcodes ) ) {
+	// Only process previews for media related shortcodes.
+	if ( array_diff( $found_shortcodes, $media_shortcodes ) ) {
 		wp_send_json_error();
 	}
 
